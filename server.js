@@ -50,7 +50,7 @@ app.use('/api/', apiLimiter);
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/luckybet';
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_insecure_secret';
-const ODDS_API_KEY = process.env.ODDS_API_KEY || '581547add320d504f22fd7454a1140df';
+const ODDS_API_KEY = process.env.ODDS_API_KEY || '71d50e5677648848758f3f82d79b763b';
 
 mongoose.connect(MONGO_URI)
     .then(async () => {
