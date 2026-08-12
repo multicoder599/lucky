@@ -698,7 +698,7 @@ async function fetchAndCacheLiveOdds() {
                     odds: drawOdds ? [homeOdds, drawOdds, awayOdds] : [homeOdds, null, awayOdds],
                     markets: detailedMarkets
                 },
-                { upsert: true, new: true, setDefaultsOnInsert: true }
+                { upsert: true, returnDocument: 'after', setDefaultsOnInsert: true }
             );
         }
 
@@ -878,7 +878,7 @@ app.post('/api/bets/save-code', async (req, res) => {
         await BookingSlip.findOneAndUpdate(
             { code: code.toUpperCase() },
             { code: code.toUpperCase(), legs, stake, totalOdds, potentialReturn, currency: 'KES' },
-            { upsert: true, new: true }
+            { upsert: true, returnDocument: 'after' }
         );
         res.status(200).json({ success: true, message: "Code saved" });
     } catch (err) {
@@ -1060,7 +1060,7 @@ app.put('/api/admin/matches/:id/result', verifyAdminToken, async (req, res) => {
             if (status !== undefined) updateData.status = status;
         }
 
-        const updatedMatch = await Match.findByIdAndUpdate(req.params.id, updateData, { new: true });
+        const updatedMatch = await Match.findByIdAndUpdate(req.params.id, updateData, { returnDocument: 'after' });
         res.status(200).json({ message: "Result updated", match: updatedMatch });
     } catch (err) { res.status(500).send(); }
 });
